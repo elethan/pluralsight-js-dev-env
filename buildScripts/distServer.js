@@ -4,22 +4,32 @@
 import express from 'express';
 import path from  'path';
 import open from 'open';
-import webpack from 'webpack';
-import config from '../webpack.config.dev';
+import compression from 'compression';
+
+// dont need webpack for distribution
+// we are serving static pages
+//import webpack from 'webpack';
+//import config from '../webpack.config.dev';
 
  // eslint-disable no-console
 
 const port = 3000;
 const app = express();
-const compiler = webpack(config);
+// because this is distribution
+// we tell express to serve static pages
+// this is just for local test of aproduction build
+app.use(compression());
+app.use(express.static('dist'));
 
+/*
+const compiler = webpack(config);
 app.use(require('webpack-dev-middleware')(compiler,{
   noInfo: true,
   publicPath: config.output.publicPath
 }));
-
+*/
 app.get('/',function(req, res){
-  res.sendFile(path.join(__dirname,'../src/index.html'));
+  res.sendFile(path.join(__dirname,'../dist/index.html'));
 });
 
 app.get('/users', function(req, res) {
