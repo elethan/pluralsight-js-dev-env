@@ -16,8 +16,17 @@
     "generate-mock-data":"babel-node buildScripts/generateMockData",
     "prestart-mockAPI":"npm run generate-mock-data",
     "start-mockAPI":"json-server --watch src/api/db.json --port 3001",
+<<<<<<< HEAD
     "deploy":"surge ./dist"
   },
+=======
+    "clean-dist": "rimraf ./dist && mkdir dist",
+    "prebuild": "npm-run-all clean-dist test lint",
+    "build": "babel-node buildScripts/build.js",
+    "postbuild": "babel-node buildScripts/distServer.js",
+    "deploy": "surge ./dist"
+    },
+>>>>>>> 5d19c58fd4548662da073f5bf072930891dfa7fe
   "author": "Cory House",
   "license": "MIT",
   "dependencies": {
